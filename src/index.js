@@ -1,9 +1,27 @@
-import "./styles.css";
+import { curry } from "lodash"
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use Parcel to bundle this sandbox, you can find more info about Parcel
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+let button = document.querySelector("#button")
+let input = document.querySelector("#input")
+
+let addEventListener = curry((element, eventType, listener) => {
+  element.addEventListener(eventType, listener)
+})
+
+let addButtonListener = addEventListener(button)
+
+addButtonListener("click")(() => {
+  console.log("clicked")
+})
+
+addButtonListener("mouseenter")(() => {
+  console.log("enter")
+})
+addButtonListener("mouseleave")(() => {
+  console.log("leave")
+})
+
+let addInputListener = addEventListener(input)
+
+addInputListener("input", event => {
+  console.log(event.target.value)
+})
