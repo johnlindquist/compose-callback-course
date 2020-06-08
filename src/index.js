@@ -3,25 +3,34 @@ import { curry } from "lodash"
 let button = document.querySelector("#button")
 let input = document.querySelector("#input")
 
-let addEventListener = curry((element, eventType, listener) => {
+
+let addEventListener = (element, eventType, listener) => {
   element.addEventListener(eventType, listener)
-})
+}
+
+addEventListener = curry(addEventListener)
 
 let addButtonListener = addEventListener(button)
 
-addButtonListener("click")(() => {
+
+let addButtonClickListener = addButtonListener("click")
+
+addButtonClickListener(() => {
   console.log("clicked")
 })
 
-addButtonListener("mouseenter")(() => {
+addButtonClickListener(() => {
+  console.log("track click")
+})
+
+addButtonListener("mouseenter", () => {
   console.log("enter")
 })
-addButtonListener("mouseleave")(() => {
+
+addButtonListener("mouseleave", () => {
   console.log("leave")
 })
 
-let addInputListener = addEventListener(input)
-
-addInputListener("input", event => {
+addEventListener(input, "input", event => {
   console.log(event.target.value)
 })
